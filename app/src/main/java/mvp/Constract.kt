@@ -1,0 +1,6 @@
+package mvp
+
+interface Constract {
+
+
+}

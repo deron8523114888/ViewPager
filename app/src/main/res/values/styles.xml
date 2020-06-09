@@ -9,21 +9,4 @@
     </style>
 
 
-    <style name="AppThemeAno" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">#FF9224</item>
-        <item name="colorPrimaryDark">#000000</item>
-    </style>
-
-
-    <style name="AppTheme.NoActionBar" parent="AppTheme">
-
-        //是否不顯示ActionBar
-        <item name="windowNoTitle">true</item>
-
-        //是否全螢幕(是否不顯示StatusBar)
-        <item name="android:windowFullscreen">true</item>
-    </style>
-
-
 </resources>

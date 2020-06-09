@@ -3,24 +3,15 @@ package com.example.viewpager
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
-import mvp.Presenter
 
 class View : AppCompatActivity() {
 
 
-    var presenter: Presenter? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
-//        actionBar?.setIcon(R.drawable.item_actionbar_icon)
-//        actionBar?.setLogo(R.drawable.item_actionbar_icon)
-//        actionBar?.setDisplayUseLogoEnabled(true)
-//        supportActionBar?.setLogo(R.drawable.item_actionbar_icon)
-
 
         init()
 
@@ -28,16 +19,18 @@ class View : AppCompatActivity() {
     }
 
     fun init() {
-        presenter = Presenter()
 
-        vp_data.adapter = PagerAdapter(supportFragmentManager)
+        vp_data.adapter = PagerAdapter(
+            supportFragmentManager,
+            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+        )
         psts_data.run {
 
             // 是否平分螢幕
-            setShouldExpand(true)
+            setShouldExpand(false)
 
             // 文字大小
-            textSize = 50
+            textSize = 40
 
             // 文字顏色
             textColor = Color.WHITE

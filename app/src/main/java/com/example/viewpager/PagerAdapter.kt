@@ -5,17 +5,20 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 
-class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(
+class PagerAdapter(
+    fm: FragmentManager,
+    behaviorResumeOnlyCurrentFragment: Int
+) : FragmentPagerAdapter(
     fm,
     BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
 ) {
 
-
-    val arrayList = arrayListOf("1", "2", "3", "4")
+    val arrayList = arrayListOf("政府宣導", "違規停車", "即時報導", "商家資訊", "....")
 
 
     override fun getPageTitle(position: Int): CharSequence? {
         return arrayList[position]
+
     }
 
 
@@ -26,17 +29,18 @@ class PagerAdapter(fm: FragmentManager) : FragmentPagerAdapter(
 
         // 將目前的頁碼丟入 Bundle
         val bundle = Bundle()
-        bundle.putString("position", "" + position)
+        bundle.putInt("position", position)
 
         // 將 Bundle 丟給 Fragment
         pagerFragment.arguments = bundle
+
 
 
         return pagerFragment
     }
 
     override fun getCount(): Int {
-        return 4
+        return 5
     }
 
 

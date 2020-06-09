@@ -3,7 +3,6 @@ package com.example.viewpager
 import android.graphics.Color
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
 
 class View : AppCompatActivity() {
@@ -21,8 +20,7 @@ class View : AppCompatActivity() {
     fun init() {
 
         vp_data.adapter = PagerAdapter(
-            supportFragmentManager,
-            FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT
+            supportFragmentManager
         )
         psts_data.run {
 
@@ -48,5 +46,6 @@ class View : AppCompatActivity() {
 
 
     }
+
 
 }

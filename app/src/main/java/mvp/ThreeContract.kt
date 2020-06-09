@@ -1,7 +1,6 @@
 package mvp
 
-interface Constract {
-
+interface ThreeContract {
 
     interface View {
         fun showData(data: String) {}

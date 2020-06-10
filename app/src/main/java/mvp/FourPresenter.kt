@@ -7,7 +7,7 @@ import retrofit.RetrofitManager
 
 class FourPresenter(val fourFragment: FourFragment) : FourContract.Presenter {
 
-    override fun getApiData(position: Int) {
+    override fun getApiData() {
         val thread = Thread(Runnable {
             Log.d("thread_", "" + Thread.currentThread().id)
             getData()
@@ -29,7 +29,13 @@ class FourPresenter(val fourFragment: FourFragment) : FourContract.Presenter {
                         data =
                             data + "公司名稱：" + it.Factory_CName + "\n" + "地址：" + it.Factory_Address + "\n" + "商品名稱：" + it.Product_Name + "\n\n"
                     }
-                    fourFragment.showData(data)
+
+
+                    Log.d("boolean_","FOUR："+fourFragment.detectVisible())
+                    // Todo 判斷 Fragment 是否還存在 (
+                    if(fourFragment.detectVisible()) {
+                        fourFragment.showData(data)
+                    }
                 }
 
                 failure?.run {

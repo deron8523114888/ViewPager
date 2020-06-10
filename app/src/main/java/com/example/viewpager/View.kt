@@ -1,23 +1,17 @@
 package com.example.viewpager
 
 import android.graphics.Color
-import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
-class View : AppCompatActivity() {
+class View : BaseActivity() {
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        init()
-
-
+    override fun bindlayout(): Int {
+        return R.layout.activity_main
     }
 
-    fun init() {
+    override fun initailView() {
+
 
         vp_data.adapter = PagerAdapter(
             supportFragmentManager
@@ -43,9 +37,16 @@ class View : AppCompatActivity() {
             setViewPager(vp_data)
 
         }
+    }
 
+    override fun initailData() {
 
     }
+
+    override fun initailEvnet() {
+        TODO("Not yet implemented")
+    }
+
 
 
 }

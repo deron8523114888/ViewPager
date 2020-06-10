@@ -8,7 +8,7 @@ import retrofit.RetrofitManager
 
 class TwoPresenter(val twoFragment: TwoFragment) : TwoContract.Presenter {
 
-    override fun getApiData(position: Int) {
+    override fun getApiData() {
         val thread = Thread(Runnable {
             Log.d("thread_", "" + Thread.currentThread().id)
             getData()
@@ -30,7 +30,12 @@ class TwoPresenter(val twoFragment: TwoFragment) : TwoContract.Presenter {
                         data =
                             data + "地點：" + it.area + it.village + it.caption + "\n車牌：" + it.car_licence + "\n\n"
                     }
-                    twoFragment.showData(data)
+
+                    // Todo 判斷 Fragment 是否還存在
+
+                    if(twoFragment.detectVisible()) {
+                        twoFragment.showData(data)
+                    }
                 }
 
                 failure?.run {

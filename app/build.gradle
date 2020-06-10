@@ -51,4 +51,8 @@ dependencies {
     // gson
     implementation 'com.google.code.gson:gson:2.8.6'
 
+    // BufferKnife
+    implementation 'com.jakewharton:butterknife:10.2.1'
+    annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
+
 }

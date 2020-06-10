@@ -8,7 +8,7 @@ import retrofit.RetrofitManager
 class OnePresenter(val oneFragment: OneFragment) : OneContract.Presenter {
 
 
-    override fun getApiData(position: Int) {
+    override fun getApiData() {
 
         val thread = Thread(Runnable {
             Log.d("thread_", "" + Thread.currentThread().id)
@@ -32,7 +32,12 @@ class OnePresenter(val oneFragment: OneFragment) : OneContract.Presenter {
                         data =
                             data + "編號：" + it.Id + "\n" + "時間：" + it.PublishTime + "\n" + "網址：" + it.PageUrl + "\n\n"
                     }
-                    oneFragment.showData(data)
+
+                    // Todo 判斷 Fragment 是否還存在
+                    if(oneFragment.detectVisible()) {
+                        oneFragment.showData(data)
+                    }
+
                 }
 
                 failure?.run {

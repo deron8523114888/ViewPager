@@ -1,66 +1,41 @@
 package fragment
 
-import android.app.Activity
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
-import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
-import androidx.fragment.app.Fragment
 import com.example.viewpager.R
-import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.item_pagerview.*
 import mvp.TwoContract
 import mvp.TwoPresenter
 
-class TwoFragment : Fragment(), TwoContract.View {
+class TwoFragment : BaseFragment(), TwoContract.View {
 
 
     var presenter = TwoPresenter(this)
-    var tv_data: TextView? = null
-    var handler: Handler? = null
+    var apiHandler: Handler? = null
     var isLoading = false
-    var position: Int? = null
-    var activity: Activity? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
+    var position = 2
 
 
-        position = arguments?.getInt("position")
-        activity = context as Activity
-
-
-        Log.d("test_", "onAttach" + position)
+    override fun bindlayout(): Int {
+        return R.layout.item_pagerview
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun initailView() {
+        handler()
+    }
 
-        Log.d("test_", "onCreateView" + position)
+    override fun initailData() {
+    }
 
-
-
-        handler = object : Handler() {
+    override fun handler() {
+        apiHandler = object : Handler() {
             override fun handleMessage(msg: Message) {
-                tv_data?.setText(msg.data.getString("data"))
+                tv_data.setText(msg.data.getString("data"))
                 isLoading = false
+                super.handleMessage(msg)
             }
         }
-
-        // 解析 ViewPager 上要顯示的 layout
-        val view = inflater.inflate(R.layout.item_pagerview, container, false)
-        tv_data = view.findViewById(R.id.tv_data)
-
-
-
-        return view
     }
 
     override fun showData(data: String) {
@@ -70,22 +45,28 @@ class TwoFragment : Fragment(), TwoContract.View {
         val message = Message()
         message.data = bundle
 
-        handler?.sendMessage(message)
+        apiHandler?.sendMessage(message)
 
-
-        super.showData(data)
     }
 
-    override fun onResume() {
+    override fun detectVisible(): Boolean {
 
-        activity?.tv_test?.setText("position:" + position)
-        if (!isLoading) {
-            // 以目前畫面的 position 請 presenter 呼叫對應的 API
-            presenter.getApiData(position!!)
-            isLoading = true
+        return detectVisibleBo!!
+    }
+
+    override fun setMenuVisibility(menuVisible: Boolean) {
+        super.setMenuVisibility(menuVisible)
+
+        // lazyload
+        if (menuVisible && !isLoading) {
+            load()
         }
-        super.onResume()
     }
 
+    fun load() {
 
+        // 向 presenter 呼叫對應的 API
+        presenter.getApiData()
+        isLoading = true
+    }
 }

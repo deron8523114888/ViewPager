@@ -7,7 +7,7 @@ import retrofit.RetrofitManager
 
 class ThreePresenter(val threeFragment: ThreeFragment) : ThreeContract.Presenter {
 
-    override fun getApiData(position: Int) {
+    override fun getApiData() {
         val thread = Thread(Runnable {
             Log.d("thread_", "" + Thread.currentThread().id)
             getData()
@@ -29,7 +29,12 @@ class ThreePresenter(val threeFragment: ThreeFragment) : ThreeContract.Presenter
                         data =
                             data + "概要：" + it.subject + "\n" + "案件名稱：" + it.caseName + "\n" + "負責單位：" + it.orgName + "\n\n"
                     }
-                    threeFragment.showData(data)
+
+                    // Todo 判斷 Fragment 是否還存在
+                    if(threeFragment.detectVisible()) {
+                        threeFragment.showData(data)
+                    }
+
                 }
 
                 failure?.run {
